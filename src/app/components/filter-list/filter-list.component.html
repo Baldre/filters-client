@@ -1,0 +1,23 @@
+<div class="card my-4 bg-dark">
+  <div class="card-body">
+    <table class="table table-bordered table-striped table-dark">
+      <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Criteria amount</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let filter of filters">
+        <td>{{ filter.id }}</td>
+        <td>{{ filter.name }}</td>
+        <td>{{ filter.criteria.length }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card-footer">
+      <a class="btn btn-secondary float-end m-1">Add Filter</a>
+  </div>
+</div>
