@@ -1,0 +1,17 @@
+<div class="card bg-dark">
+  <div class="card-body">
+    <h5 class="text-white">Filter</h5>
+    <p class="text-white">Sample dialog text.</p>
+  </div>
+  <div class="card-footer d-flex justify-content-end">
+    <ng-container *ngIf="modalMode; else nonModalControls">
+      <button type="button" class="btn btn-secondary m-1" data-bs-dismiss="modal">Close</button>
+      <button type="button" class="btn btn-primary m-1">Save changes</button>
+    </ng-container>
+
+    <ng-template #nonModalControls>
+      <button type="button" class="btn btn-secondary m-1"  (click)="onSubmit()">Close</button>
+      <button type="button" class="btn btn-primary m-1"  (click)="onSubmit()">Save changes</button>
+    </ng-template>
+  </div>
+</div>
