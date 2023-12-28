@@ -1,17 +1,78 @@
 <div class="card bg-dark">
   <div class="card-body">
-    <h5 class="text-white">Filter</h5>
-    <p class="text-white">Sample dialog text.</p>
+    <form #filterForm="ngForm">
+      <div class="form-group row was-validated">
+        <label for="name" class="col-sm-2 col-form-label text-white">Filter name</label>
+        <div class="col-sm-5">
+          <input type="text" [(ngModel)]="filter.name"
+                 class="form-control"
+                 id="name"
+                 name="name"
+                 required #name="ngModel">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label text-white">Criteria</label>
+        <div class="col-sm-8">
+          <div *ngFor="let criteria of filter.criteria; index as i">
+            <div class="row my-2">
+              <div class="col">
+                <select class="form-select" [(ngModel)]="criteria.type" (change)="typeChanged(criteria)"
+                        name="criteriaType{{i}}"
+                        #criteriaType="ngModel">
+                  <option *ngFor="let type of criteriaTypes | keyvalue" [value]="type.value">
+                    {{displayType(type.value)}}
+                  </option>
+                </select>
+              </div>
+              <div class="col">
+                <select class="form-select" [(ngModel)]="criteria.condition"
+                        name="criteriaCondition{{i}}"
+                        #criteriaCondition="ngModel">
+                  <option *ngFor="let condition of criteriaConditionsFor(criteria.type)" [value]="condition">
+                    {{displayCondition(condition)}}
+                  </option>
+                </select>
+              </div>
+              <div class="col form-group was-validated">
+                <input type="text" [(ngModel)]="criteria.compareValue"
+                       class="form-control"
+                       name="criteriaValue{{i}}"
+                       required #criteriaValue="ngModel">
+              </div>
+              <div class="col-1">
+                <button type="button" [disabled]="!canRemoveCriteria()"
+                        class="btn btn-secondary"
+                        (click)="removeCriteria(criteria)">−
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="row my-2">
+            <div class="col"></div>
+            <div class="col-1">
+              <button type="button" class="btn btn-primary" (click)="addCriteria()">+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
   </div>
   <div class="card-footer d-flex justify-content-end">
     <ng-container *ngIf="modalMode; else nonModalControls">
       <button type="button" class="btn btn-secondary m-1" data-bs-dismiss="modal">Close</button>
-      <button type="button" class="btn btn-primary m-1">Save changes</button>
+      <button type="button" [disabled]="!filterForm.form.valid"
+              class="btn btn-primary m-1"
+              data-bs-dismiss="modal" (click)="onSubmit()">Save
+      </button>
     </ng-container>
 
     <ng-template #nonModalControls>
-      <button type="button" class="btn btn-secondary m-1"  (click)="onSubmit()">Close</button>
-      <button type="button" class="btn btn-primary m-1"  (click)="onSubmit()">Save changes</button>
+      <button type="button" class="btn btn-secondary m-1" (click)="onClose()">Close</button>
+      <button type="button" [disabled]="!filterForm.form.valid"
+              class="btn btn-primary m-1"
+              (click)="onSubmit()">Save
+      </button>
     </ng-template>
   </div>
 </div>

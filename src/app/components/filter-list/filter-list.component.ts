@@ -21,17 +21,26 @@ export class FilterListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.updateFilters();
+  }
+
+  private updateFilters() {
     this.filterService.findAll().subscribe((data: Filter[]) => {
       this.filters = data
     });
   }
 
-  openDialog(): void {
+  openNonModal(): void {
     this.formVisible = true;
   }
 
-  dialogSubmitted(): void {
+  dialogSubmitted(result: boolean): void {
     this.formVisible = false;
+
+    // Update the filter list if successful
+    if (result) {
+      this.updateFilters();
+    }
   }
 
 }

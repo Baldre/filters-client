@@ -18,4 +18,9 @@ export class FilterService {
     const url = `${this.baseUrl}/all`;
     return this.http.get<Filter[]>(url);
   }
+
+  public save(filter: Filter) {
+    return this.http.post(this.baseUrl, filter, { responseType: 'text' });
+  }
+
 }

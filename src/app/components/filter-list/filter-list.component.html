@@ -19,16 +19,16 @@
   </div>
   <div class="card-footer">
     <ng-container *ngIf="formVisible; else cardControls">
-      <app-filter-create-dialog [modalMode]="modalMode" (formSubmitEvent)="dialogSubmitted()"></app-filter-create-dialog>
+      <app-filter-create-dialog [modalMode]="modalMode" (formSubmitEvent)="dialogSubmitted($event)"></app-filter-create-dialog>
     </ng-container>
 
     <ng-template #cardControls>
       <ng-container *ngIf="modalMode; else nonModalContent">
-        <a class="btn btn-secondary m-1" data-bs-toggle="modal" data-bs-target="#filterFormModal">Add Filter</a>
+        <a class="btn btn-primary m-1" data-bs-toggle="modal" data-bs-target="#filterFormModal">Add Filter</a>
       </ng-container>
 
       <ng-template #nonModalContent>
-        <a class="btn btn-secondary m-1" (click)="openDialog()">Add Filter</a>
+        <a class="btn btn-primary m-1" (click)="openNonModal()">Add Filter</a>
       </ng-template>
       <div class="form-check form-check-inline m-1 align-middle">
         <input type="checkbox" class="form-check-input" [(ngModel)]="modalMode">
@@ -41,7 +41,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content bg-dark">
         <div class="modal-body">
-          <app-filter-create-dialog [modalMode]="modalMode" (formSubmitEvent)="dialogSubmitted()"></app-filter-create-dialog>
+          <app-filter-create-dialog [modalMode]="modalMode" (formSubmitEvent)="dialogSubmitted($event)"></app-filter-create-dialog>
         </div>
       </div>
     </div>
