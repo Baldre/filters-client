@@ -13,7 +13,7 @@
       </div>
       <div class="form-group row">
         <label class="col-sm-2 col-form-label text-white">Criteria</label>
-        <div class="col-sm-8">
+        <div class="col-sm-10">
           <div *ngFor="let criteria of filter.criteria; index as i">
             <div class="row my-2">
               <div class="col">
@@ -35,10 +35,36 @@
                 </select>
               </div>
               <div class="col form-group was-validated">
-                <input type="text" [(ngModel)]="criteria.compareValue"
-                       class="form-control"
-                       name="criteriaValue{{i}}"
-                       required #criteriaValue="ngModel">
+                <ng-container *ngIf="criteria.type == 'AMOUNT'">
+                  <input type="number" [(ngModel)]="criteria.compareValue"
+                         class="form-control"
+                         name="criteriaValue{{i}}"
+                         required #criteriaValue="ngModel">
+                </ng-container>
+                <ng-container *ngIf="criteria.type == 'DATE'">
+                  <!-- TODO: Date format validation; valid symbol covers calendar select -->
+                  <div class="input-group">
+                    <input [(ngModel)]="criteria.compareValue"
+                      class="form-control"
+                      placeholder="dd/mm/yyyy"
+                      name="criteriaValue{{i}}"
+                      ngbDatepicker required #criteriaValue="ngModel"
+                      #d="ngbDatepicker"
+                    />
+                    <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar3" viewBox="0 0 16 16">
+                        <path d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2M1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z"/>
+                        <path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
+                      </svg>
+                    </button>
+                  </div>
+                </ng-container>
+                <ng-container *ngIf="criteria.type == 'TITLE'">
+                  <input type="text" [(ngModel)]="criteria.compareValue"
+                         class="form-control"
+                         name="criteriaValue{{i}}"
+                         required #criteriaValue="ngModel">
+                </ng-container>
               </div>
               <div class="col-1">
                 <button type="button" [disabled]="!canRemoveCriteria()"

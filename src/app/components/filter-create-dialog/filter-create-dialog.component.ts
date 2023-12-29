@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormGroup, FormsModule } from '@angular/forms';
+import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { Criteria, CriteriaType, CriteriaCondition, CriteriaTypesDisplay, CriteriaConditionsDisplay } from '../../models/criteria.model';
 import { Filter } from '../../models/filter.model';
 import { FilterService } from '../../services/filter.service';
@@ -8,7 +9,7 @@ import { FilterService } from '../../services/filter.service';
 @Component({
   selector: 'app-filter-create-dialog',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, NgbDatepickerModule],
   templateUrl: './filter-create-dialog.component.html'
 })
 export class FilterCreateDialogComponent {
