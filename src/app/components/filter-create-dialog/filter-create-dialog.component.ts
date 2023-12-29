@@ -10,7 +10,8 @@ import { FilterService } from '../../services/filter.service';
   selector: 'app-filter-create-dialog',
   standalone: true,
   imports: [CommonModule, FormsModule, NgbDatepickerModule],
-  templateUrl: './filter-create-dialog.component.html'
+  templateUrl: './filter-create-dialog.component.html',
+  styleUrl: './filter-create-dialog.component.scss'
 })
 export class FilterCreateDialogComponent {
   @Input() modalMode: boolean = false;

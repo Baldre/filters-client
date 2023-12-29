@@ -1,4 +1,7 @@
 <div class="card bg-dark">
+  <div class="card-header">
+    <h4 class="text-white mb-1">Add Filter</h4>
+  </div>
   <div class="card-body">
     <form #filterForm="ngForm">
       <div class="form-group row was-validated">
@@ -72,6 +75,7 @@
                         (click)="removeCriteria(criteria)">−
                 </button>
               </div>
+              <div class="col-1"></div>
             </div>
           </div>
           <div class="row my-2">
@@ -79,6 +83,7 @@
             <div class="col-1">
               <button type="button" class="btn btn-primary" (click)="addCriteria()">+</button>
             </div>
+            <div class="col-1"></div>
           </div>
         </div>
       </div>
