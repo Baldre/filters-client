@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormGroup, FormsModule } from '@angular/forms';
 import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
+import { ResizableModule, ResizeEvent } from 'angular-resizable-element';
 import { Criteria, CriteriaType, CriteriaCondition, CriteriaTypesDisplay, CriteriaConditionsDisplay } from '../../models/criteria.model';
 import { Filter } from '../../models/filter.model';
 import { FilterService } from '../../services/filter.service';
@@ -9,7 +10,7 @@ import { FilterService } from '../../services/filter.service';
 @Component({
   selector: 'app-filter-create-dialog',
   standalone: true,
-  imports: [CommonModule, FormsModule, NgbDatepickerModule],
+  imports: [CommonModule, FormsModule, NgbDatepickerModule, ResizableModule],
   templateUrl: './filter-create-dialog.component.html',
   styleUrl: './filter-create-dialog.component.scss'
 })
@@ -18,12 +19,14 @@ export class FilterCreateDialogComponent {
   @Output() formSubmitEvent = new EventEmitter<boolean>();
 
   filter: Filter;
+  style: object;
 
   criteriaTypes = CriteriaType;
 
   constructor(private filterService: FilterService) {
     this.filter = new Filter();
     this.filter.criteria = [this.defaultCriteria()];
+    this.style = {};
   }
 
   onClose(): void {
@@ -92,6 +95,17 @@ export class FilterCreateDialogComponent {
 
   displayCondition(condition: string): string {
     return (CriteriaConditionsDisplay as Record<string, string>)[condition];
+  }
+
+  validate(event: ResizeEvent): boolean {
+    const MIN_DIMENSIONS_PX: number = 150;
+    return !(event.rectangle.height && event.rectangle.height < MIN_DIMENSIONS_PX);
+  }
+
+  onResizeEnd(event: ResizeEvent): void {
+    this.style = {
+      height: `${event.rectangle.height}px`
+    };
   }
 
 }

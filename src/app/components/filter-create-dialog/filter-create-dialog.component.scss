@@ -1,7 +1,15 @@
 .card {
   height: 25rem;
+  box-sizing: border-box;
 }
 
 .card-body {
   overflow-y: scroll;
+}
+
+.resize-handle-bottom {
+  bottom: 0;
+  position: absolute;
+  cursor: row-resize;
+  align-self: center;
 }
