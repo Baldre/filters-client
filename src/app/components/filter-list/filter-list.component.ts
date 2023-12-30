@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Filter } from '../../models/filter.model';
+import { CriteriaType, CriteriaCondition, CriteriaTypesDisplay, CriteriaConditionsDisplay } from '../../models/criteria.model';
 import { FilterService } from '../../services/filter.service';
 import { FilterCreateDialogComponent } from '../filter-create-dialog/filter-create-dialog.component';
 
@@ -42,5 +43,13 @@ export class FilterListComponent implements OnInit {
       this.updateFilters();
     }
   }
+
+    displayType(type: CriteriaType): string {
+      return CriteriaTypesDisplay[type];
+    }
+
+    displayCondition(condition: CriteriaCondition): string {
+      return CriteriaConditionsDisplay[condition];
+    }
 
 }

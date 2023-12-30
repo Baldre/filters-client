@@ -1,25 +1,34 @@
 <div class="card my-4 bg-dark">
   <div class="card-body">
-    <table class="table table-bordered table-striped table-dark">
-      <thead>
-      <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Name</th>
-        <th scope="col">Number of criteria</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let filter of filters">
-        <td>{{ filter.id }}</td>
-        <td>{{ filter.name }}</td>
-        <td>{{ filter.criteria.length }}</td>
-      </tr>
-      </tbody>
-    </table>
+    <ng-container *ngFor="let filter of filters">
+      <div class="card bg-dark text-white">
+        <div class="card-header">
+          <a data-bs-toggle="collapse" href="#filter{{filter.id}}" role="button" aria-expanded="false"
+             aria-controls="collapseExample">
+            {{ filter.name }}
+          </a>
+        </div>
+        <div class="collapse" id="filter{{filter.id}}">
+          <div class="card-body">
+            <h5>
+              Criteria
+            </h5>
+            <ng-container *ngFor="let criteria of filter.criteria">
+              <p class="mb-2">
+                "{{ displayType(criteria.type) }}",
+                "{{ displayCondition(criteria.condition) }}",
+                "{{ criteria.compareValue }}"
+              </p>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </ng-container>
   </div>
   <div class="card-footer">
     <ng-container *ngIf="formVisible; else cardControls">
-      <app-filter-create-dialog [modalMode]="modalMode" (formSubmitEvent)="dialogSubmitted($event)"></app-filter-create-dialog>
+      <app-filter-create-dialog [modalMode]="modalMode"
+                                (formSubmitEvent)="dialogSubmitted($event)"></app-filter-create-dialog>
     </ng-container>
 
     <ng-template #cardControls>
@@ -41,7 +50,8 @@
     <div class="modal-dialog modal-xl" role="document">
       <div class="modal-content bg-dark">
         <div class="modal-body">
-          <app-filter-create-dialog [modalMode]="modalMode" (formSubmitEvent)="dialogSubmitted($event)"></app-filter-create-dialog>
+          <app-filter-create-dialog [modalMode]="modalMode"
+                                    (formSubmitEvent)="dialogSubmitted($event)"></app-filter-create-dialog>
         </div>
       </div>
     </div>
