@@ -9,13 +9,13 @@
   </div>
   <div class="card-body">
     <form #filterForm="ngForm">
-      <div class="form-group row was-validated">
+      <div class="form-group row">
         <label for="name" class="col-sm-2 col-form-label text-white">Filter name</label>
         <div class="col-sm-5">
           <input type="text" [(ngModel)]="filter.name"
                  class="form-control"
                  id="name"
-                 name="name"
+                 name="name" [ngClass]="{ 'is-invalid': name.invalid }"
                  required #name="ngModel">
         </div>
       </div>
@@ -42,20 +42,19 @@
                   </option>
                 </select>
               </div>
-              <div class="col form-group was-validated">
+              <div class="col form-group">
                 <ng-container *ngIf="criteria.type == 'AMOUNT'">
                   <input type="number" [(ngModel)]="criteria.compareValue"
                          class="form-control"
-                         name="criteriaValue{{i}}"
+                         name="criteriaValue{{i}}" [ngClass]="{ 'is-invalid': criteriaValue.invalid }"
                          required #criteriaValue="ngModel">
                 </ng-container>
                 <ng-container *ngIf="criteria.type == 'DATE'">
-                  <!-- TODO: Date format validation; valid symbol covers calendar select -->
                   <div class="input-group">
                     <input [(ngModel)]="criteria.compareValue"
                       class="form-control"
                       placeholder="dd/mm/yyyy"
-                      name="criteriaValue{{i}}"
+                      name="criteriaValue{{i}}" [ngClass]="{ 'is-invalid': criteriaValue.invalid }"
                       ngbDatepicker required #criteriaValue="ngModel"
                       #d="ngbDatepicker"
                     />
@@ -70,7 +69,7 @@
                 <ng-container *ngIf="criteria.type == 'TITLE'">
                   <input type="text" [(ngModel)]="criteria.compareValue"
                          class="form-control"
-                         name="criteriaValue{{i}}"
+                         name="criteriaValue{{i}}" [ngClass]="{ 'is-invalid': criteriaValue.invalid }"
                          required #criteriaValue="ngModel">
                 </ng-container>
               </div>

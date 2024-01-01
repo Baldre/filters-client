@@ -10,6 +10,8 @@ The application depends on data served by the back-end application 'Filters' (av
 
 ## Setup instructions
 
-Run `ng serve` in project root. 
+Run `npm install` in project root to install required packages.
+
+Run `ng serve`.
 
 The application is hosted at `http://localhost:4200/`.
